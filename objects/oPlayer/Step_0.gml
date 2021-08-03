@@ -1,7 +1,7 @@
 // Get Player Input
-key_left = keyboard_check(vk_left) || keyboard_check(ord("A"));
-key_right = keyboard_check(vk_right) || keyboard_check(ord("D"));
-key_jump = keyboard_check_pressed(vk_space) || keyboard_check(ord("W"));
+key_left = keyboard_check(vk_left) || keyboard_check(ord("A"))
+key_right = keyboard_check(vk_right) || keyboard_check(ord("D"))
+key_jump = keyboard_check(vk_up) || keyboard_check(ord("W")) || keyboard_check(vk_space)
 
 // Calculate horizontal movement
 var move = key_right - key_left;
@@ -11,7 +11,7 @@ horSpeed = move * walkSpeed;
 verSpeed += gravityForce;
 
 // Calculate Jump
-if (place_meeting(x,y+1,oWall) && key_jump) 
+if ((place_meeting(x, y + 1, oWall) || place_meeting(x, y + 1, oUpWall)) && key_jump) 
 {
 	verSpeed = -9;
 }
@@ -55,16 +55,15 @@ if (colisionDesdeAbajoDownWall && colisionActualDownWall != "Arriba")
 	
 	colisionActualDownWall = "Abajo"
 	
-	while (!place_meeting(x, y + verSpeed, oDownWall))
+	while (!place_meeting(x, y + sign(verSpeed) * 5, oDownWall))
 	{
-		y += verSpeed;
+		y += sign(verSpeed) * 5
 	}
 	verSpeed = 0;
 }
 
 if (!colisionDesdeAbajoDownWall && !colisionDesdeArribaDownWall)
 {
-	show_debug_message("Reseteando Colision");
 	colisionActualDownWall = ""
 }
 
@@ -73,7 +72,7 @@ if (!colisionDesdeAbajoDownWall && !colisionDesdeArribaDownWall)
 colisionDesdeArribaUpWall = place_meeting(x, y + (verSpeed * sign(verSpeed)), oUpWall)
 colisionDesdeAbajoUpWall = place_meeting(x, y + (verSpeed * sign(verSpeed) * (-1)), oUpWall)
 
-if (colisionDesdeArribaUpWall && colisionActualUpWall != "Abajo")
+if (colisionDesdeArribaUpWall && colisionActualUpWall != "Abajo" && !key_jump)
 {
 	show_debug_message("Colision Arriba")
 	
@@ -95,7 +94,6 @@ if (colisionDesdeAbajoUpWall && colisionActualUpWall != "Arriba")
 
 if (!colisionDesdeAbajoUpWall && !colisionDesdeArribaUpWall)
 {
-	show_debug_message("Reseteando Colision");
 	colisionActualUpWall = ""
 }
 
