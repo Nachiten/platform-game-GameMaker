@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"oCamera","path":"objects/oCamera/oCamera.yy",},"order":4,},
     {"id":{"name":"oWall","path":"objects/oWall/oWall.yy",},"order":1,},
     {"id":{"name":"sPlayer","path":"sprites/sPlayer/sPlayer.yy",},"order":0,},
     {"id":{"name":"oUpWall","path":"objects/oUpWall/oUpWall.yy",},"order":3,},
